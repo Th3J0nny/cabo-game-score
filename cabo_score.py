@@ -1,5 +1,5 @@
-from os import listdir
-from os.path import isfile, join
+from os import listdir, makedirs
+from os.path import isfile, join, exists
 import json
 
 if __name__ == '__main__':
@@ -16,7 +16,10 @@ if __name__ == '__main__':
 	print("| '--------------' || '--------------' || '--------------' || '--------------' |")
 	print(" '----------------'  '----------------'  '----------------'  '----------------' ")
 
-	all_game_names = [f for f in listdir('./data') if isfile(join('./data', f))]
+	data_path = './data'
+	if not exists(data_path):
+		makedirs(data_path)
+	all_game_names = [f for f in listdir(data_path) if isfile(join(data_path, f))]
 	game_name = None
 	while not game_name or game_name in all_game_names:
 		game_name = input("Please enter a name for the new game:\n--> ")
